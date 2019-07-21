@@ -62,6 +62,9 @@ class TableView: UITableViewController{
             
         }else if item["type"] == "File"{
             
+            Session.shared.mp.pause()
+            Session.shared.mp.removeAllItems()
+            
             let player = storyboard?.instantiateViewController(identifier: "player") as! ViewController
             player.mode = "play"
             player.filename = currentPath + "\(item["name"]!)"
@@ -69,12 +72,24 @@ class TableView: UITableViewController{
             Session.shared.nowPlaying = item["name"]!
             Session.shared.upNextList.removeAll()
             Session.shared.upNextItem.removeAll()
-            for i in self.listing{
-                var url = baseURL + self.currentPath + i["name"]!
+            
+            var itemName = [AVPlayerItem : String]()
+            itemName.removeAll()
+            
+            for i in 0..<listing.count{
+                var url = baseURL + currentPath + listing[i]["name"]!
                 url = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-                Session.shared.upNextItem.append(AVPlayerItem(url: URL(string: url)!))
-                Session.shared.upNextList.append(i["name"]!)
+                let AVItem = AVPlayerItem(url: URL(string: url)!)
+                itemName[AVItem] = listing[i]["name"]!
+                if i == indexPath.row{
+                    Session.shared.upNextItem.insert(AVItem, at: 0)
+                    Session.shared.upNextList.insert(listing[i]["name"]!, at: 0)
+                }else{
+                    Session.shared.upNextItem.append(AVItem)
+                    Session.shared.upNextList.append(listing[i]["name"]!)
+                }
             }
+            player.itemName = itemName
             Session.shared.mp = AVQueuePlayer(items: Session.shared.upNextItem)
             navigationController?.pushViewController(player, animated: true)
             

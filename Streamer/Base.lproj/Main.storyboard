@@ -51,10 +51,11 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tjV-6G-1jE">
-                                <rect key="frame" x="194.5" y="462" width="25" height="22"/>
+                                <rect key="frame" x="194.5" y="462" width="25" height="37"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="25" id="tGO-J4-Etf"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="31"/>
                                 <state key="normal" image="playpause" catalog="system"/>
                                 <connections>
                                     <action selector="playPause:" destination="Gw7-Ec-ykk" eventType="touchUpInside" id="JtK-Ct-HeP"/>
@@ -107,7 +108,7 @@
             <objects>
                 <tableViewController title="Up Next" id="6q4-Ma-nxT" customClass="UpNext" customModule="Streamer" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="8xQ-1u-BVM">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
@@ -226,6 +227,6 @@
         <image name="playpause" catalog="system" width="64" height="42"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="X6u-18-VWa"/>
+        <segue reference="GCE-Vs-OqW"/>
     </inferredMetricsTieBreakers>
 </document>
