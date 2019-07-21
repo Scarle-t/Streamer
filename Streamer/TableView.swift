@@ -62,54 +62,21 @@ class TableView: UITableViewController{
             
         }else if item["type"] == "File"{
             
-            if Session.shared.upNextList.count == 0 && Session.shared.nowPlaying == "" {
-                let player = storyboard?.instantiateViewController(identifier: "player") as! ViewController
-                player.mode = "play"
-                player.filename = currentPath + "\(item["name"]!)"
-                player.path = currentPath
-                Session.shared.nowPlaying = item["name"]!
-                Session.shared.upNextList.removeAll()
-                Session.shared.upNextItem.removeAll()
-                for i in self.listing{
-                    var url = baseURL + self.currentPath + i["name"]!
-                    url = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-                    Session.shared.upNextItem.append(AVPlayerItem(url: URL(string: url)!))
-                    Session.shared.upNextList.append(i["name"]!)
-                }
-                Session.shared.mp = AVQueuePlayer(items: Session.shared.upNextItem)
-                navigationController?.pushViewController(player, animated: true)
-            }else{
-                let options = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-                options.addAction(UIAlertAction(title: "Add to Up Next", style: .default, handler: { (_) in
-                    Session.shared.upNextList.append(item["name"]!)
-                    
-                    var url = baseURL + self.currentPath + item["name"]!
-                    url = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-                    
-                    Session.shared.upNextItem.append(AVPlayerItem(url: URL(string: url)!))
-                    Session.shared.mp.insert(AVPlayerItem(url: URL(string: url)!), after: Session.shared.mp.items().last)
-                    
-                    let alert = UIAlertController(title: "Success", message: nil, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
-                }))
-                options.addAction(UIAlertAction(title: "Repeat Album", style: .default, handler: { (_) in
-                    Session.shared.upNextList.removeAll()
-                    Session.shared.upNextItem.removeAll()
-                    for i in self.listing{
-                        var url = baseURL + self.currentPath + i["name"]!
-                        url = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-                        Session.shared.upNextItem.append(AVPlayerItem(url: URL(string: url)!))
-                        Session.shared.upNextList.append(i["name"]!)
-                    }
-                    Session.shared.mp = AVQueuePlayer(items: Session.shared.upNextItem)
-                    let alert = UIAlertController(title: "Success", message: nil, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
-                }))
-                options.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-                present(options, animated: true, completion: nil)
+            let player = storyboard?.instantiateViewController(identifier: "player") as! ViewController
+            player.mode = "play"
+            player.filename = currentPath + "\(item["name"]!)"
+            player.path = currentPath
+            Session.shared.nowPlaying = item["name"]!
+            Session.shared.upNextList.removeAll()
+            Session.shared.upNextItem.removeAll()
+            for i in self.listing{
+                var url = baseURL + self.currentPath + i["name"]!
+                url = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+                Session.shared.upNextItem.append(AVPlayerItem(url: URL(string: url)!))
+                Session.shared.upNextList.append(i["name"]!)
             }
+            Session.shared.mp = AVQueuePlayer(items: Session.shared.upNextItem)
+            navigationController?.pushViewController(player, animated: true)
             
         }
         
