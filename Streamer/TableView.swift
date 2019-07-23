@@ -25,7 +25,8 @@ class TableView: UITableViewController{
     
     @IBAction func showPlayer(_ sender: UIBarButtonItem) {
         let player = storyboard?.instantiateViewController(identifier: "player") as! ViewController
-        navigationController?.pushViewController(player, animated: true)
+        player.modalPresentationStyle = .fullScreen
+        present(player, animated: true, completion: nil)
     }
     
     //MARK: DELEGATION
@@ -110,7 +111,8 @@ class TableView: UITableViewController{
             
             Session.shared.play()
             let player = storyboard?.instantiateViewController(identifier: "player") as! ViewController
-            navigationController?.pushViewController(player, animated: true)
+            player.modalPresentationStyle = .fullScreen
+            present(player, animated: true, completion: nil)
         }
         
     }
