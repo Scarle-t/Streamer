@@ -15,12 +15,14 @@ class ItemInfo: NSObject{
     var name: String
     var album: String
     var artwork: String
+    var path: String
     
     //MARK: INIT
     override init(){
         name = ""
         album = ""
         artwork = ""
+        path = ""
     }
     
 }

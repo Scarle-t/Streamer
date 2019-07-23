@@ -16,7 +16,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var playerNames = [String]()
     
     @IBOutlet weak var nowPlaying: UILabel!
-    @IBOutlet weak var progress: UIProgressView!
+    @IBOutlet weak var progress: UISlider!
     @IBOutlet weak var st: UILabel!
     @IBOutlet weak var et: UILabel!
     @IBOutlet weak var albumCover: UIImageView!
@@ -73,6 +73,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    @IBAction func sliderDrag(_ sender: UISlider) {
+        let mp = Session.shared.mp
+        guard let item = mp.currentItem else {return}
+        let duration = CMTimeGetSeconds((item.asset.duration))
+        
+        mp.seek(to: CMTime(seconds: Float64(sender.value) * duration, preferredTimescale: 1))
+        
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return playerNames.count
     }
@@ -117,6 +126,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         albumCover.center.x = view.center.x
         upNextList.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height - playPauseBtn.frame.origin.y - 45)
         upNextList.frame.origin.y = view.frame.height
+        progress.setThumbImage(UIImage(systemName: "circle.fill"), for: .normal)
     }
     
     override func viewDidLoad() {
@@ -139,12 +149,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.nowPlaying.text = Session.shared.currentSong
             self.albumCover.image = Session.shared.currentCover
             self.coverBg.image = Session.shared.currentCover
-            self.progress.progress = Float(time / duration)
+            self.progress.value = Float(time / duration)
             if mp.rate == 1.0 {
                 self.playPauseBtn.setImage(UIImage(systemName: "pause"), for: .normal)
             }else if mp.rate == 0.0{
                 self.playPauseBtn.setImage(UIImage(systemName: "play"), for: .normal)
             }
+            Session.shared.nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = time
+            MPNowPlayingInfoCenter.default().nowPlayingInfo = Session.shared.nowPlayingInfo
         }
         
         setup()

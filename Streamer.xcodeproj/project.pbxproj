@@ -20,6 +20,7 @@
 		A65C9A3C22E3B13D008215CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A65C9A3A22E3B13D008215CC /* Main.storyboard */; };
 		A65C9A3E22E3B13F008215CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A65C9A3D22E3B13F008215CC /* Assets.xcassets */; };
 		A65C9A4122E3B13F008215CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A65C9A3F22E3B13F008215CC /* LaunchScreen.storyboard */; };
+		A6C1D01622E7679C0037B3D9 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C1D01522E7679C0037B3D9 /* Playlist.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		A65C9A3D22E3B13F008215CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A65C9A4022E3B13F008215CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A65C9A4222E3B13F008215CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A6C1D01522E7679C0037B3D9 /* Playlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 		A6C88F5122E4189E00AA0586 /* Streamer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Streamer.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -83,6 +85,7 @@
 				A615536922E3E59E00AA601D /* Session.swift */,
 				A615536822E3E59E00AA601D /* TableView.swift */,
 				A65C9A3822E3B13D008215CC /* ViewController.swift */,
+				A6C1D01522E7679C0037B3D9 /* Playlist.swift */,
 				A65C9A3D22E3B13F008215CC /* Assets.xcassets */,
 				A65C9A3F22E3B13F008215CC /* LaunchScreen.storyboard */,
 				A65C9A3A22E3B13D008215CC /* Main.storyboard */,
@@ -169,6 +172,7 @@
 				A615536E22E3E59E00AA601D /* Session.swift in Sources */,
 				A615536C22E3E59E00AA601D /* JSON.swift in Sources */,
 				A615536A22E3E59E00AA601D /* Reachability.swift in Sources */,
+				A6C1D01622E7679C0037B3D9 /* Playlist.swift in Sources */,
 				A65C9A3722E3B13D008215CC /* SceneDelegate.swift in Sources */,
 				A61535F422E69E4700E44106 /* ItemInfo.swift in Sources */,
 			);
