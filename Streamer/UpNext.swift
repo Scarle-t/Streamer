@@ -11,7 +11,7 @@ import UIKit
 class UpNext: UITableViewController{
     
     //MARK: VARIABLE
-    
+    var playerNames = [String]()
     
     //MARK: IBOUTLET
     
@@ -26,12 +26,12 @@ class UpNext: UITableViewController{
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Session.shared.upNextList.count
+        return playerNames.count
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = Session.shared.upNextList[indexPath.row]
+        cell.textLabel?.text = playerNames[indexPath.row]
         return cell
     }
     
@@ -49,7 +49,11 @@ class UpNext: UITableViewController{
     }
     
     func setup(){
-        
+        playerNames.removeAll()
+        for i in Session.shared.counter ..< Session.shared.playerNames.count{
+            playerNames.append(Session.shared.playerNames[i])
+        }
+        tableView.reloadData()
     }
     
     //MARK: VIEW CONTROLLER

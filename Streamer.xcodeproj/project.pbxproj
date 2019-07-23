@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A61535F422E69E4700E44106 /* ItemInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61535F322E69E4700E44106 /* ItemInfo.swift */; };
 		A615536A22E3E59E00AA601D /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A615536522E3E59E00AA601D /* Reachability.swift */; };
 		A615536B22E3E59E00AA601D /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = A615536622E3E59E00AA601D /* Network.swift */; };
 		A615536C22E3E59E00AA601D /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = A615536722E3E59E00AA601D /* JSON.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A61535F322E69E4700E44106 /* ItemInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemInfo.swift; sourceTree = "<group>"; };
 		A615536522E3E59E00AA601D /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		A615536622E3E59E00AA601D /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		A615536722E3E59E00AA601D /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 				A65C9A3422E3B13D008215CC /* AppDelegate.swift */,
 				A6C88F5422E41B7C00AA0586 /* Artwork.swift */,
 				A615536F22E3E5C600AA601D /* GlobalVars.swift */,
+				A61535F322E69E4700E44106 /* ItemInfo.swift */,
 				A615536722E3E59E00AA601D /* JSON.swift */,
 				A615536622E3E59E00AA601D /* Network.swift */,
 				A615536522E3E59E00AA601D /* Reachability.swift */,
@@ -175,6 +178,7 @@
 				A615536C22E3E59E00AA601D /* JSON.swift in Sources */,
 				A615536A22E3E59E00AA601D /* Reachability.swift in Sources */,
 				A65C9A3722E3B13D008215CC /* SceneDelegate.swift in Sources */,
+				A61535F422E69E4700E44106 /* ItemInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,6 +15,7 @@ class TableView: UITableViewController{
     let network = Network()
     var listing = [[String : String]]()
     var currentPath = ""
+    var albumName = ""
     
     //MARK: IBOUTLET
     
@@ -24,7 +25,6 @@ class TableView: UITableViewController{
     
     @IBAction func showPlayer(_ sender: UIBarButtonItem) {
         let player = storyboard?.instantiateViewController(identifier: "player") as! ViewController
-        player.mode = "show"
         navigationController?.pushViewController(player, animated: true)
     }
     
@@ -58,41 +58,27 @@ class TableView: UITableViewController{
         if item["type"] == "Folder"{
             let listing = storyboard?.instantiateViewController(identifier: "listing") as! TableView
             listing.currentPath = currentPath + item["name"]! + "/"
+            listing.albumName = item["name"]!
             navigationController?.pushViewController(listing, animated: true)
             
         }else if item["type"] == "File"{
-            
-            Session.shared.mp.pause()
-            Session.shared.mp.removeAllItems()
-            
-            let player = storyboard?.instantiateViewController(identifier: "player") as! ViewController
-            player.mode = "play"
-            player.filename = currentPath + "\(item["name"]!)"
-            player.path = currentPath
-            Session.shared.nowPlaying = item["name"]!
-            Session.shared.upNextList.removeAll()
-            Session.shared.upNextItem.removeAll()
-            
-            var itemName = [AVPlayerItem : String]()
-            itemName.removeAll()
-            
-            for i in 0..<listing.count{
-                var url = baseURL + currentPath + listing[i]["name"]!
-                url = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-                let AVItem = AVPlayerItem(url: URL(string: url)!)
-                itemName[AVItem] = listing[i]["name"]!
-                if i == indexPath.row{
-                    Session.shared.upNextItem.insert(AVItem, at: 0)
-                    Session.shared.upNextList.insert(listing[i]["name"]!, at: 0)
-                }else{
-                    Session.shared.upNextItem.append(AVItem)
-                    Session.shared.upNextList.append(listing[i]["name"]!)
+            Session.shared.playerItems.removeAll()
+            for l in listing{
+                if l["type"] == "File"{
+                    var url = baseURL + currentPath + l["name"]!
+                    url = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+                    let AVItem = AVPlayerItem(url: URL(string: url)!)
+                    let itemInfo = ItemInfo()
+                    itemInfo.name = String(l["name"]!.split(separator: ".").first!)
+                    itemInfo.album = albumName
+                    itemInfo.artwork = currentPath + "folder.jpg"
+                    
+                    Session.shared.playerItems.append([AVItem : itemInfo])
                 }
             }
-            player.itemName = itemName
-            Session.shared.mp = AVQueuePlayer(items: Session.shared.upNextItem)
+            Session.shared.play()
+            let player = storyboard?.instantiateViewController(identifier: "player") as! ViewController
             navigationController?.pushViewController(player, animated: true)
-            
         }
         
     }
@@ -115,7 +101,7 @@ class TableView: UITableViewController{
             }
             DispatchQueue.main.async {
                 self.tableView.reloadData()
-                self.title = self.currentPath
+                self.title = self.albumName
             }
         }
     }

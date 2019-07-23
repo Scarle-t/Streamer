@@ -13,7 +13,6 @@ import AVKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func setupSession(){
-        Session.shared.upNextList.removeAll()
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
             do {

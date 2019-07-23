@@ -18,6 +18,9 @@ class Artwork: UIViewController{
     
     
     //MARK: IBACTION
+    @IBAction func close(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
     
     
     //MARK: DELEGATION
@@ -36,8 +39,7 @@ class Artwork: UIViewController{
     }
     
     func setup(){
-        cover.image = Session.shared.nowArtwork
-        title = String(Session.shared.nowPlaying.split(separator: ".")[0])
+        cover.image = Session.shared.currentCover
     }
     
     //MARK: VIEW CONTROLLER
