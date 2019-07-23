@@ -33,6 +33,8 @@ class Session: NSObject{
         mp.removeAllItems()
         playerNames.removeAll()
         counter = 0
+        currentCover = UIImage()
+        currentSong = ""
         for item in playerItems{
             for (k, v) in item{
                 mp.insert(k, after: mp.items().last)
@@ -51,6 +53,7 @@ class Session: NSObject{
                 self.duration = CMTimeGetSeconds((item.asset.duration))
                 self.nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = self.duration
                 self.nowPlayingInfo[MPMediaItemPropertyTitle] = self.currentSong
+                self.nowPlayingInfo[MPMediaItemPropertyAlbumTitle] = info.album
                 if let path = info.artwork.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed){
                     Network().get(url: baseURL + path, method: "GET", query: nil) { (data) in
                         guard let d = data, let cover = UIImage(data: d) else {return}
@@ -79,6 +82,7 @@ class Session: NSObject{
         nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = nil
         nowPlayingInfo[MPMediaItemPropertyTitle] = nil
         nowPlayingInfo[MPMediaItemPropertyArtwork] = nil
+        nowPlayingInfo[MPMediaItemPropertyAlbumTitle] = nil
         
         MPNowPlayingInfoCenter.default().nowPlayingInfo = nowPlayingInfo
         
