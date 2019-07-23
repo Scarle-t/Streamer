@@ -30,16 +30,9 @@ class Session: NSObject{
     
     func play(){
         mp.pause()
-        mp.removeAllItems()
-        playerNames.removeAll()
-        counter = 0
-        currentCover = UIImage()
-        currentSong = ""
-        for item in playerItems{
-            for (k, v) in item{
-                mp.insert(k, after: mp.items().last)
-                playerNames.append(v.name)
-            }
+        for (k, v) in playerItems[0]{
+            mp.insert(k, after: nil)
+            playerNames.append(v.name)
         }
         setupCC()
         mp.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(1, preferredTimescale: 1), queue: DispatchQueue.main) { (t) in
@@ -71,6 +64,21 @@ class Session: NSObject{
             }
             self.nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = self.time
             MPNowPlayingInfoCenter.default().nowPlayingInfo = self.nowPlayingInfo
+        }
+        mp.play()
+    }
+    
+    func prepare(){
+        mp.removeAllItems()
+        playerNames.removeAll()
+        counter = 0
+        currentCover = UIImage()
+        currentSong = ""
+        for item in playerItems{
+            for (k, v) in item{
+                mp.insert(k, after: mp.items().last)
+                playerNames.append(v.name)
+            }
         }
         mp.play()
     }

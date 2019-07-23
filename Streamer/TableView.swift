@@ -64,21 +64,30 @@ class TableView: UITableViewController{
             
         }else if item["type"] == "File"{
             Session.shared.playerItems.removeAll()
+            var url = baseURL + currentPath + listing[indexPath.row]["name"]!
+            url = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+            let AVItem = AVPlayerItem(url: URL(string: url)!)
+            let itemInfo = ItemInfo()
+            itemInfo.name = String(listing[indexPath.row]["name"]!.split(separator: ".").first!)
+            itemInfo.album = albumName
+            itemInfo.artwork = currentPath + "folder.jpg"
+            Session.shared.playerItems.append([AVItem : itemInfo])
+            Session.shared.play()
             
-            if indexPath.row != 0 {
-                for l in indexPath.row ..< listing.count{
-                    if listing[l]["type"] == "File"{
-                        var url = baseURL + currentPath + listing[l]["name"]!
-                        url = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-                        let AVItem = AVPlayerItem(url: URL(string: url)!)
-                        let itemInfo = ItemInfo()
-                        itemInfo.name = String(listing[l]["name"]!.split(separator: ".").first!)
-                        itemInfo.album = albumName
-                        itemInfo.artwork = currentPath + "folder.jpg"
-                        
-                        Session.shared.playerItems.append([AVItem : itemInfo])
-                    }
+            for l in indexPath.row + 1 ..< listing.count{
+                if listing[l]["type"] == "File"{
+                    var url = baseURL + currentPath + listing[l]["name"]!
+                    url = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+                    let AVItem = AVPlayerItem(url: URL(string: url)!)
+                    let itemInfo = ItemInfo()
+                    itemInfo.name = String(listing[l]["name"]!.split(separator: ".").first!)
+                    itemInfo.album = albumName
+                    itemInfo.artwork = currentPath + "folder.jpg"
+                    
+                    Session.shared.playerItems.append([AVItem : itemInfo])
                 }
+            }
+            if indexPath.row != 0 {
                 for l in 0 ..< indexPath.row{
                     if listing[l]["type"] == "File"{
                         var url = baseURL + currentPath + listing[l]["name"]!
@@ -92,24 +101,8 @@ class TableView: UITableViewController{
                         Session.shared.playerItems.append([AVItem : itemInfo])
                     }
                 }
-            }else{
-                for l in listing{
-                    if l["type"] == "File"{
-                        var url = baseURL + currentPath + l["name"]!
-                        url = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-                        let AVItem = AVPlayerItem(url: URL(string: url)!)
-                        let itemInfo = ItemInfo()
-                        itemInfo.name = String(l["name"]!.split(separator: ".").first!)
-                        itemInfo.album = albumName
-                        itemInfo.artwork = currentPath + "folder.jpg"
-                        
-                        Session.shared.playerItems.append([AVItem : itemInfo])
-                    }
-                }
             }
-            
-            
-            Session.shared.play()
+            Session.shared.prepare()
             let player = storyboard?.instantiateViewController(identifier: "player") as! ViewController
             player.modalPresentationStyle = .fullScreen
             present(player, animated: true, completion: nil)
