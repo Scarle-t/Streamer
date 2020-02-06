@@ -8,4 +8,4 @@
 
 import Foundation
 
-let baseURL = "https://scarletsc.net/Song/"
+let baseURL = "https://song.scarletsc.net/"

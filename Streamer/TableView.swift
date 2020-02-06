@@ -127,6 +127,9 @@ class TableView: UITableViewController{
                 self.listing.append(i)
             }
             DispatchQueue.main.async {
+                if self.tableView.refreshControl!.isRefreshing{
+                    self.tableView.refreshControl?.endRefreshing()
+                }
                 self.tableView.reloadData()
                 self.title = self.albumName
             }
@@ -138,10 +141,13 @@ class TableView: UITableViewController{
     }
     
     func layout(){
-        
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self, action: #selector(setup), for: .valueChanged)
+        refresh.tintColor = .systemBlue
+        tableView.refreshControl = refresh
     }
     
-    func setup(){
+    @objc func setup(){
         get(path: currentPath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
     }
     
